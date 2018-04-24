@@ -116,34 +116,37 @@ namespace WorldRegeneration
 
         private void OnWorldRegeneration(object Sender, EventArgs args)
         {
-            if ((DateTime.UtcNow - WorldRegenCheck).TotalMinutes >= (Config.RegenerationInterval / 60) - 6 && !hasWorldRegenerated)
+            if (Config.enableautomaticregen)
             {
-                TimeSpan RegenSpan = WorldRegenCheck.AddSeconds(Config.RegenerationInterval) - DateTime.UtcNow;
-                if(RegenSpan.Minutes > 0 && RegenSpan.Minutes < 6 && RegenSpan.Seconds == 0)
+                if ((DateTime.UtcNow - WorldRegenCheck).TotalMinutes >= (Config.RegenerationInterval / 60) - 6 && !hasWorldRegenerated)
                 {
-					TSPlayer.All.SendMessage(string.Format("The world will regenerate in {0} minute{1}.", RegenSpan.Minutes, RegenSpan.Minutes == 1 ? "" : "s"), 50, 255, 130);
-                    TShock.Log.ConsoleInfo(string.Format("The world will regenerate in {0} minute{1}.", RegenSpan.Minutes, RegenSpan.Minutes == 1 ? "" : "s"));
+                    TimeSpan RegenSpan = WorldRegenCheck.AddSeconds(Config.RegenerationInterval) - DateTime.UtcNow;
+                    if (RegenSpan.Minutes > 0 && RegenSpan.Minutes < 6 && RegenSpan.Seconds == 0)
+                    {
+                        TSPlayer.All.SendMessage(string.Format("The world will regenerate in {0} minute{1}.", RegenSpan.Minutes, RegenSpan.Minutes == 1 ? "" : "s"), 50, 255, 130);
+                        TShock.Log.ConsoleInfo(string.Format("The world will regenerate in {0} minute{1}.", RegenSpan.Minutes, RegenSpan.Minutes == 1 ? "" : "s"));
+                    }
+                    if (RegenSpan.Minutes == 0)
+                        hasWorldRegenerated = true;
                 }
-                if (RegenSpan.Minutes == 0)
-                    hasWorldRegenerated = true;
-            }
-            if ((DateTime.UtcNow - WorldRegenCheck).TotalSeconds >= Config.RegenerationInterval)
-            {
-                WorldRegenCheck = DateTime.UtcNow;
-                var worldData = from s in Directory.EnumerateFiles("worldregen", "world-*.twd")
-                                select s.Substring(17, s.Length - 21);
-
-                if (worldData.Count() > 0)
+                if ((DateTime.UtcNow - WorldRegenCheck).TotalSeconds >= Config.RegenerationInterval)
                 {
-                    Random w = new Random();
-                    int selectedWorld = w.Next(0, worldData.Count()-1);
-                    string worldPath = Path.Combine("worldregen", string.Format("world-{0}.twd", worldData.ElementAt(selectedWorld)));
-					TShock.Log.ConsoleInfo(string.Format("Attempting to regenerate world: {0}.", worldData.ElementAt(selectedWorld)));
-					Utilities.RegenerateWorld(worldPath);
-                    hasWorldRegenerated = false;
-					lastWorldID = worldData.ElementAt(selectedWorld);
+                    WorldRegenCheck = DateTime.UtcNow;
+                    var worldData = from s in Directory.EnumerateFiles("worldregen", "world-*.twd")
+                                    select s.Substring(17, s.Length - 21);
 
-				}
+                    if (worldData.Count() > 0)
+                    {
+                        Random w = new Random();
+                        int selectedWorld = w.Next(0, worldData.Count() - 1);
+                        string worldPath = Path.Combine("worldregen", string.Format("world-{0}.twd", worldData.ElementAt(selectedWorld)));
+                        TShock.Log.ConsoleInfo(string.Format("Attempting to regenerate world: {0}.", worldData.ElementAt(selectedWorld)));
+                        Utilities.RegenerateWorld(worldPath);
+                        hasWorldRegenerated = false;
+                        lastWorldID = worldData.ElementAt(selectedWorld);
+
+                    }
+                }
             }
         }
 

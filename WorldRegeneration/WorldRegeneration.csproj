@@ -48,12 +48,28 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>ref\BCrypt.Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HttpServer">
+      <HintPath>ref\HttpServer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>ref\Mono.Data.Sqlite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>ref\MySql.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\1 - References\Newtonsoft.Json.dll</HintPath>
+      <HintPath>ref\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="OTAPI">
-      <HintPath>..\..\1 - References\OTAPI.dll</HintPath>
+      <HintPath>ref\OTAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -61,11 +77,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="TerrariaServer">
-      <HintPath>..\..\1 - References\TerrariaServer.exe</HintPath>
+      <HintPath>ref\TerrariaServer.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="TShockAPI">
-      <HintPath>..\..\1 - References\TShockAPI.dll</HintPath>
+      <HintPath>ref\TShockAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Wolfje.Plugins.SEconomy">
+      <HintPath>ref\Wolfje.Plugins.SEconomy.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

@@ -6,8 +6,9 @@ using TShockAPI;
 namespace WorldRegeneration
 {
     public class Config
-    {   
-        public int RegenerationInterval = 21600;
+    {
+        public bool enableautomaticregen = false;
+        public int RegenerationInterval = 0;
         public bool IgnoreChests = false;
         public bool UseInfiniteChests = false;
         public bool ResetWorldGenStatus = false;
